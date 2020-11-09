@@ -1,9 +1,21 @@
 $("document").ready(() => {
+  $('.content').richText();
+
+
+  $("#mylogOutButton").hide();
+  if(sessionStorage.getItem("user")!=null)
+  {
+    $(".searchbar").show();
+    $("#texteditor").hide();
+    
+    $("#mylogButton").hide();
+    $("#createPost").show();
+    $("#mysingUpButton").hide();
+    $("#mylogOutButton").show();
 
 
 
-
-
+  }
 
   // /show registeration form
   $(".reg").click((a) => {
@@ -53,7 +65,7 @@ $("document").ready(() => {
           console.log("fhsdfgkuhsdgfkusdg");
           $("#mailCheck").html("This mail Id Already Exists");
 
-          $('#sub').prop('disabled', true);
+          $("#password").prop('disabled', true);
 
           //$('#sub').removeAttr('disabled');
 
@@ -63,7 +75,8 @@ $("document").ready(() => {
           
           var mail = $("#mymail").val();  
 
-          $('#sub').removeAttr('disabled');
+          $('#password').removeAttr('disabled');
+          $("#mailCheck").html(" ");
 
         }
       }
@@ -74,15 +87,15 @@ $("document").ready(() => {
   });
 
 
- //Not Registered? Create Account
- $("#singUp").click((a) => {
+//  //Not Registered? Create Account
+ $("#singUp").click(() => {
   //$('.log').hide();
   console.log("hr");
-  debugger;
-   $('.login').hide();
-   $('.abc').show();
-  $('#registerationForm').show();
-  $('.reg').show();
+ 
+  //  $('.login').hide();
+ 
+  // $('#registerationForm').show();
+  $('.registeartion').show();
 
   // a.preventDefault();
 });
@@ -94,7 +107,9 @@ $("#mylogOutButton").click(()=>{
   $("#mylogOutButton").hide();
   
     $('#mysingUpButton').show();         
-   $('#mylogButton').show();  
+   $('#mylogButton').show(); 
+   $('#texteditor').hide();
+   $('.createblog').hide();
 
 });
 
@@ -121,7 +136,7 @@ $("#mylogOutButton").click(()=>{
 
       },
       success: (x) => {
-        alert(x.mail +" posted");
+        //alert(x.mail +" posted");
         console.log(x);
       }
 
@@ -134,6 +149,7 @@ $("#mylogOutButton").click(()=>{
     $('.log').hide();
     $('.login').show();
     $(".searchbar").hide();
+  
 
     // a.preventDefault();
   });
@@ -160,6 +176,8 @@ $("#mylogOutButton").click(()=>{
              
           $('.login').hide();   
           $("#mylogOutButton").show();
+          $(".searchbar").show();
+          $(".createblog").show();
           
           var a = JSON.parse(sessionStorage.getItem("user"));
           console.log("hello" + a.name);
@@ -182,12 +200,47 @@ $("#mylogOutButton").click(()=>{
 
 
   });
+//text-editor Window display
+$(".createblog").click(function(){
+  $(".searchbar").hide();
+  $("#texteditor").show();
+  $(".site-title").hide();
+})
+//Post the blog Ajax call
+  //post the blog
+  $("#post").click(function(){  
+    var sessionObj = JSON.parse(sessionStorage.getItem('user'));
+    console.log(sessionObj.name);
+    debugger;
+    var time= new Date($.now());
+    var timestamp=time.getDate()+"-"+(time.getMonth()+1)+"-"+time.getFullYear()+" "+time.getHours()+":"+time.getMinutes()+":"+time.getSeconds();   
+    if($("#title").val()==="")
+    {
+      alert("Enter the title of blog");
+    }   
+    else{
+      $.ajax({           
+        type: 'POST',
+        dataType: 'json',          
+        url: 'http://localhost:3000/posts',
+        data: {
+         "Content":$(".content").val(),
+         "category":$("#category :selected").val(),
+         "title":$("#title").val(),
+         "imageurl":$("#image").val(),
+         "timestamp":timestamp,
+         "author":sessionObj.name
+        } ,             
+        dataType:'json',
+        success: function(result){              
+            console.log('result');
+        }                     
+      })
+      $("#texteditor").hide();
+      $('.serachbar').show();
+     
+    }  
+  })
 
-
-  if(sessionStorage.getItem("user")!=null)
-  {
-    // $("mylogButton").hide();
-
-  }
-
+ 
 })

@@ -4,6 +4,15 @@
     background: url('https://www.strikingly.com/content/static/01860dce6859ba49fd670be737ab09c9/6f021/2019-12-13-background-image-for-website.jpg') fixed;
    //background-size: cover;
 } */
+
+
+.userProfile{
+ 
+  width: 90px;
+  height: 50px;
+  border-radius: 50%;
+  float: right;
+}
 .myReg{
     display: none;
     justify-content: center;
@@ -29,7 +38,13 @@
 
 
 }
-
+.createblog{
+   display: none;
+   justify-self: end;
+}
+#texteditor{
+    display: none;    
+ }
 form {
    max-width: 550px;
    padding: 15px;
