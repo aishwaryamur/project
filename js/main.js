@@ -68,6 +68,7 @@ $(document).ready(function () {
     $.ajax({
         url: "http://localhost:3000/posts",
         method: "get",
+        dataType:'json',
         success: (x) => {
             console.log(x)
 
@@ -84,7 +85,7 @@ $(document).ready(function () {
                     var ids = result.id;
                     let anchor = document.createElement('a');
                     //    debugger;
-                    anchor.href = "#";
+                    // anchor.href = "#";
                     anchor.id = "readme";
                     anchor.innerText = "Read More....";
 
@@ -100,13 +101,38 @@ $(document).ready(function () {
                             // localStorage.setItem("searchObj", JSON.stringify(result));
                             if (sessionStorage.getItem('user') != null)
                              {
-                                 console.log(data.Content);
-                                 console.log(data.id);
-                                $(`${data.id}`).html(data.Content);
+                                $('main').hide();
+                                // let para = document.createElement('div');
+                                // let titleHeading = document.createElement('h1');
+                                // let contentDiv = document.createElement('p');
+                                // let breakLine = document.createElement('br');
+                                // let authorHeading = document.createElement('h4');
+                                // let image = document.createElement('img');
+                                // titleHeading.innerText = data.title;
+                                // authorHeading.innerText = "Written By : " + data.author;
+                                // contentDiv.innerHTML = data.Content;
+                                // let postedTime = document.createElement('p');
+                                // postedTime.innerText="Posted on :" + data.timestamp;
+                                // let verticalSpace = document.createElement('hr');
+                                // // image.className="rounded mx-auto d-block";
+                                // image.src = data.imageurl;
+                                // para.append(titleHeading);
+                                // para.append(breakLine);
+                                // para.append(authorHeading);
+                                // para.append(verticalSpace);
+                                // para.append(postedTime);
+                                // para.append(breakLine);
+                                // para.append(image);
+                                // para.append(contentDiv);
+                                // para.append(breakLine);
+                                // $("#newwindow").append(para);
+                                localStorage.setItem("readData",data);
+                                location.assign('demo.html');
                             }
-                            else {
+                            else
+                            {
                                 alert("Please Login First !!!");
-                                window.open('index.html');
+                                location.assign('index.html');
                             }
                         });
                     }
@@ -217,7 +243,7 @@ $(document).ready(function () {
                                     }
                                     else {
                                         alert("Please Login First !!!");
-                                        window.open('index.html');
+                                        location.assign('index.html');
                                     }
                                 },
                                 error: function (err) {

@@ -3,7 +3,8 @@ $('document').ready(()=>{
 
     // var a = localStorage.getItem("searchObj");
     // console.log(a);
-    var getData = localStorage.getItem("searchObj");
+    var getData = localStorage.getItem("readData");
+    console.log(getData);
     var parsedData = JSON.parse(getData);
     console.log(parsedData.content);
     localStorage.removeItem("searchObj");
@@ -23,5 +24,6 @@ $('document').ready(()=>{
     para.append(contentDiv);
     para.append(breakLine);
     $("#newwindow").append(para);
+    
 
 })
